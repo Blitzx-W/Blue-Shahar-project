@@ -1,4 +1,4 @@
-import React,{ useState} from "react"; // ייבוא ספריית ריאקט ושימוש בסטייט על מנת ליצור משתמשים דינמיים
+import React, { useState } from "react"; // ייבוא ספריית ריאקט ושימוש בסטייט על מנת ליצור משתמשים דינמיים
 import { type InstrumentData } from "../services/api"; // מייבאים את הטייפ
 
 interface DataDialogProps { // חוזה להפעלת החלון 
@@ -7,12 +7,12 @@ interface DataDialogProps { // חוזה להפעלת החלון
     onSave: (data: InstrumentData) => void;// פונקציה לשמירת הנתונים שמחזירה כלום
 }
 
-export const DataDialog: React.FC<DataDialogProps>= ({isOpen, onClose, onSave}) => { // קומפננטה שמייצאת נתונים שנוכל להשתמש בו בקבצים אחרים ובנוסף פירוק אובייקט למשתנים נוחים לשימוש
+export const DataDialog: React.FC<DataDialogProps> = ({ isOpen, onClose, onSave }) => { // קומפננטה שמייצאת נתונים שנוכל להשתמש בו בקבצים אחרים ובנוסף פירוק אובייקט למשתנים נוחים לשימוש
     const [altitude, setAltitude] = useState<string>(''); //שמירת ההקלדה בתיבת הגובה בהתחלה זה סטרינג ריק ובהמשך מספר
     const [hsi, setHsi] = useState<string>(''); // תיבת המצפן
     const [adi, setAdi] = useState<string>(''); //  תיבת האופק
     const [error, setError] = useState<string>('');// הודעת שגיאה אם מוקלד מספר מחוץ לטווח
-    
+
     if (!isOpen) return null; // אם החלון סגור כלום לא יעשה רינדור
 
     const handleSubmit = (e: React.FormEvent) => { //  פונקציה הרצה ברגע שהמשמש לוחץ על שליחה המקבלת איבנט
@@ -21,13 +21,13 @@ export const DataDialog: React.FC<DataDialogProps>= ({isOpen, onClose, onSave}) 
         const altNum = Number(altitude); // הפיכת הטקסט למספרים כי תיבות קלט תמיד מחזירות טקסט
         const hsiNum = Number(hsi); //
         const adiNum = Number(adi);
-    
-        // וואלידציה על פי הנתונים שניתנו לפני שפונים לשרת
-        if(altNum<0 || altNum>3000) return setError('altitude must be between 0 and 3000'); // במידה והמספר לא בטווח מפעילים את הפונקציה סט ארור
-        if(hsiNum<0 || hsiNum>360) return setError('HSI must be between 0 and 360'); 
-        if(adiNum<0 || adiNum>100) return setError('ADI must be between 0 and 100');
 
-        onSave({ altitude: altNum, hsi: hsiNum, adi: adiNum}); // אם הכל תקין קוראים לפונקציית השמירה ומאפסים את השדות
+        // וואלידציה על פי הנתונים שניתנו לפני שפונים לשרת
+        if (altNum < 0 || altNum > 3000) return setError('altitude must be between 0 and 3000'); // במידה והמספר לא בטווח מפעילים את הפונקציה סט ארור
+        if (hsiNum < 0 || hsiNum > 360) return setError('HSI must be between 0 and 360');
+        if (adiNum < 0 || adiNum > 100) return setError('ADI must be between 0 and 100');
+
+        onSave({ altitude: altNum, hsi: hsiNum, adi: adiNum }); // אם הכל תקין קוראים לפונקציית השמירה ומאפסים את השדות
         setAltitude('');
         setHsi('');
         setAdi('');
@@ -47,7 +47,7 @@ export const DataDialog: React.FC<DataDialogProps>= ({isOpen, onClose, onSave}) 
 
                     <div className="input-group">
                         <label>HSI / Compass (0-360)</label>
-                        <input type="number" value={hsi} onChange={(e) => setHsi(e.target.value)} required/>
+                        <input type="number" value={hsi} onChange={(e) => setHsi(e.target.value)} required />
                     </div>
 
                     <div className="input-group">
@@ -55,11 +55,11 @@ export const DataDialog: React.FC<DataDialogProps>= ({isOpen, onClose, onSave}) 
                         <input type="number" value={adi} onChange={(e) => setAdi(e.target.value)} required />
                     </div>
 
-                    <div className="modal-actions"> 
+                    <div className="modal-actions">
                         <button type="button" onClick={onClose} className="cancel-btn">Cancel</button> {/* הגדרת כפתור בלחיצה עליו סוגרת את החלון */}
                         <button type="submit" className="send-btn">SEND</button> {/* כפתור שליחה שמפעיל את הסאבמיט של הטופס כולו */}
                     </div>
-                </form> 
+                </form>
             </div>
         </div>
     );
