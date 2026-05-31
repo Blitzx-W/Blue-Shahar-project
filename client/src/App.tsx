@@ -1,7 +1,7 @@
 // ייבוא של ספריית ריאקט
 // והכלים יוז סטייט לניהול משתנים דינמיים שרצים למשתמש על המסך
 // ויוז אפקט להרצת פעולה אוטומטית ברקע כשרכיב עולה או משתנה
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { FlightIndicators } from "./components/FlightIndicators"; // ייבוא קומפננטת המחוונים
 import { DataDialog } from "./components/DataDialog"; // ייבוא קומפננטת הדיאלוג
 import { getLatestData, saveInstrumentData, type InstrumentData } from "./services/api"; //ייבוא פונקציית התקשורת מול הapi
