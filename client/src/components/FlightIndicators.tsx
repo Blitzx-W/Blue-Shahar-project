@@ -10,8 +10,9 @@ export const FlightIndicators: React.FC<FlightIndicatorsProps> = ({ data }) => {
 
     const altitudePercentage = (altitude / 3000) * 100; // הפיכת הגובה לאחוזים להזזת החץ
 
-    // הערך שיתקבל הוא בין 0 ל100 ונשתמש בליניאר גרדיאנט בין הצבעים כחול לירוק
-    const adiMix = `${adi}%`; // יצירת מחרוזת שמוסיפה למספר אחוז
+    // הערך שיתקבל הוא בין -100 ל100 ונשתמש בליניאר גרדיאנט בין הצבעים כחול לירוק
+    const adiPercentage = ((adi + 100) / 2); // הפיכה של המספר כך שיהיה אפשר לעבוד עם הגארדינט
+    const adiMix = `${adiPercentage}%`; // יצירת מחרוזת שמוסיפה למספר אחוז
     // jsx 
     return (
         <div className="indicators-container"> {/* התגית שמחזיקה את שלושת המדדים */}
@@ -40,7 +41,7 @@ export const FlightIndicators: React.FC<FlightIndicatorsProps> = ({ data }) => {
             </div>
             <div className="indicator-card">
                 <h4>ADI / Horizon ({adi})</h4>{/* דיב של האופק */}
-                {/* השתמשות בליניאר גרדיאנט כך ש100 אחוז יהיה כחול ו0 יהיה ירוק  */}
+                {/* השתמשות בליניאר גרדיאנט כך ש100 אחוז יהיה כחול ו-100 כלומר 0 אחוז יהיה ירוק  */}
                 <div className="adi-circle" style={{background: `linear-gradient(to bottom, #3b82f6 ${adiMix}, #22c55e ${adiMix})`}}>
                     <div className="adi-horizon-line"></div>{/* קו לבן שבנוי באמצע */}
                 </div>

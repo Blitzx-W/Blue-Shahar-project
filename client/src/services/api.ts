@@ -8,7 +8,7 @@ export interface InstrumentData{ //הגדרת הטיפוס נתונים בגלל
 //בונים פונקציית גט לקבלת מידע מעודכן שניתן לייצא 
 export const getLatestData = async (): Promise<InstrumentData> => { // שימוש בפרומיס מכיון שזו םונקציה אסינכרונית ואני צריכים הבטחה שהאובייקט במבנה שקבענו למעלה יתקבל
     const response = await fetch(API_URL); // פונקצייה מובנת שברירת המחדל שלה הוא גט שימוש בוויט כדי להמשיך רק כשמקבל תשובה
-    if (!response.ok) { // אם נכשלנו בקבלת הנתונים
+    if (!response.ok) { // אם רספונס.אוקיי שווה לפולס נכשלנו בקבלת הנתונים
         throw new Error("failed to get data from server"); // אם הייתה בעיה בתקשורת זורקים שגיאה
     }
     return response.json()// המידע מגיע בתור טקסט ואנחנו הופכים אותו לאובייקט

@@ -19,7 +19,7 @@ const instrumentDataSchema = new mongoose.Schema({
   adi: {
     type: Number,
     required: true,
-    min: [0, 'ADI must be at least 0'],
+    min: [-100, 'ADI must be at least -100'],
     max: [100, 'ADI cannot exceed 100']
   },
   // שמירת זמן קבלת הנתונים באופן אוטומטי
