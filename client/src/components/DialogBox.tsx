@@ -1,13 +1,13 @@
 import React, { useState } from "react"; // ייבוא ספריית ריאקט ושימוש בסטייט על מנת ליצור משתמשים דינמיים
-import { type InstrumentData } from "../services/api"; // מייבאים את הטייפ
+import { type FData } from "../services/api"; // מייבאים את הטייפ
 
-interface DataDialogProps { // חוזה להפעלת החלון 
+interface DialogBoxProps { // חוזה להפעלת החלון 
     isOpen: boolean; // משתנה הבודק אם החלון פתוח
     onClose: () => void;// פונקציה שמופעלת בסגירת החלון
-    onSave: (data: InstrumentData) => void;// פונקציה לשמירת הנתונים שמחזירה כלום
+    onSave: (data: FData) => void;// פונקציה לשמירת הנתונים שמחזירה כלום
 }
 
-export const DataDialog: React.FC<DataDialogProps> = ({ isOpen, onClose, onSave }) => { // קומפננטה שמייצאת נתונים שנוכל להשתמש בו בקבצים אחרים ובנוסף פירוק אובייקט למשתנים נוחים לשימוש
+export const DialogBox: React.FC<DialogBoxProps> = ({ isOpen, onClose, onSave }) => { // קומפננטה שמייצאת נתונים שנוכל להשתמש בו בקבצים אחרים ובנוסף פירוק אובייקט למשתנים נוחים לשימוש
     const [altitude, setAltitude] = useState<string>(''); //שמירת ההקלדה בתיבת הגובה בהתחלה זה סטרינג ריק ובהמשך מספר
     const [hsi, setHsi] = useState<string>(''); // תיבת המצפן
     const [adi, setAdi] = useState<string>(''); //  תיבת האופק
@@ -15,11 +15,11 @@ export const DataDialog: React.FC<DataDialogProps> = ({ isOpen, onClose, onSave 
 
     if (!isOpen) return null; // אם החלון סגור כלום לא יעשה רינדור
 
-    const handleSubmit = (e: React.FormEvent) => { //  פונקציה הרצה ברגע שהמשמש לוחץ על שליחה המקבלת איבנט
+    const handleSubmit = (e: React.SubmitEvent) => { //  פונקציה הרצה ברגע שהמשמש לוחץ על שליחה המקבלת איבנט
         e.preventDefault(); // כששולחים פורם הדפדפן מתרענן אוטומטית ומוחק נתונים וזה מונע את זה
         setError(''); // ניקוי המסך משגיאות קודמות
         const altNum = Number(altitude); // הפיכת הטקסט למספרים כי תיבות קלט תמיד מחזירות טקסט
-        const hsiNum = Number(hsi); //
+        const hsiNum = Number(hsi); 
         const adiNum = Number(adi);
 
         // וואלידציה על פי הנתונים שניתנו לפני שפונים לשרת

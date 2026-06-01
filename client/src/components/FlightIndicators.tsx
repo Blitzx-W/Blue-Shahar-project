@@ -1,8 +1,8 @@
 import React from "react"; // ייבוא ספריית ריאקט
-import { type InstrumentData } from "../services/api"; // ייבוא האינטרפייס כך שהקומפננטה תעבוד עם המשתנים
+import { type FData } from "../services/api"; // ייבוא האינטרפייס כך שהקומפננטה תעבוד עם המשתנים
 
 interface FlightIndicatorsProps { // רכיב שמקבל פרופ בשם דאטה
-    data: InstrumentData; //הדאטה מקבלת אובייקט מסוג אינטרוסמנט 
+    data: FData; //הדאטה מקבלת אובייקט מסוג אינטרוסמנט 
 }
 // ייצוא קומפננטה שהיא רכיב פונקציונלי שמשתמש בפרופ אינטרוסמנט ופירוק האובייקט לחילוץ דאטה
 export const FlightIndicators: React.FC<FlightIndicatorsProps> = ({ data }) => {

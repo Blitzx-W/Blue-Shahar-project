@@ -34,7 +34,7 @@ flight-instruments-project/
 ├── client/                     # תיקיית ה-Frontend (React + TS)
 │   ├── src/
 │   │   ├── components/
-│   │   │   ├── DataDialog.tsx         # חלון הזנת הנתונים (Modal/Dialog)
+│   │   │   ├── dialogBox.tsx         # חלון הזנת הנתונים (Modal/Dialog)
 │   │   │   └── FlightIndicators.tsx   # רכיב המחוונים הגרפיים
 │   │   ├── services/
 │   │   │   └── api.ts                 # התקשורת האסינכרונית מול ה-API של השרת
@@ -45,7 +45,7 @@ flight-instruments-project/
 │
 ├── server/                     # תיקיית ה-Backend (Node.js + MongoDB)
 │   ├── models/
-│   │   └── InstrumentData.js   # הגדרת סכמת הנתונים וטווחי הערכים של Mongoose
+│   │   └── .js   # הגדרת סכמת הנתונים וטווחי הערכים של Mongoose
 │   ├── .env                    # קובץ הגדרות סביבה פעיל (נוצר על ידי המשתמש)
 │   ├── env.example             # קובץ דוגמה להעתקה והגדרת משתני הסביבה
 │   ├── index.js                # קוד השרת הראשי, החיבור למונגו ונתיבי ה-GET וה-POST
