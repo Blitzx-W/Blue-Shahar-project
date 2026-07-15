@@ -1,5 +1,5 @@
 // שימוש בנתיבים יחסיים במקום localhost
-const API_URL = 'jacobFlightMonitor/api/indicators';
+const API_URL = '/jacobFlightMonitor/api/indicators';
 const API_URL2 = '/preparing';
 
 export interface FData {
