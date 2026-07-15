@@ -18,6 +18,8 @@ function App() {
   const [isBoxOpen, setIsBoxOpen] = useState<boolean>(false);
   // סטייט ששומר הודעות שגיאה כלליות שקורות
   const [apiError, setApiError] = useState<string>('');
+  // הודעה על ייבוא הנתונים ושמירתפ
+  const [showUpdate, setShowUpdate] = useState<boolean>(false);
 
   //יוז אפקט שירוץ אוטומטית בטעינת האפליקציה 
   useEffect(() => {
@@ -26,6 +28,14 @@ function App() {
         setApiError(''); //ניקוי שגיאות קודמות
         const data = await getLatestD();// קריאה לפונקציית הגט של האייפיאיי ועצירה עד לקבלת התשובה
         setFData(data);// שימוש בסטייט על מנת לשנות את המשתנים לנתונים שהגיעו מהמונגו 
+        // הוספת הודעת עדכון
+        if (data.altitude!=0 || data.adi!=0 || data.hsi!=0) {
+                  setShowUpdate(true);
+        // טיימר שיעלים את ההודעה אוטומטית אחרי 3 שניות
+          setTimeout(() => {
+            setShowUpdate(false);
+          }, 2500);
+        }
       } catch (error: any) { //אם נתקלנו בשגיאה
         setApiError("could not connect to backend server");//הצגת שגיאה במידה והשרת לא רץ
       }
@@ -37,6 +47,10 @@ function App() {
     try {
       await saveFData(newData); {/* משתמשים בפונקציה שייבאו מהאייפיאי עם הדאטה ומחכים לתשובה */ }
       setFData(newData); {/* במידה והוחזרה תשובה חיובית */ }
+      setShowUpdate(true); // הוספת הודעת עדכון
+      setTimeout(() => {
+        setShowUpdate(false);
+      }, 3000);
     } catch (error: any) {
       {/* במידה והגיעה שגיאה מחזירים אותה  */ }
       setApiError(error.message || "failed to save data to server")
@@ -44,6 +58,12 @@ function App() {
   }
   return (
     <div className="app-container"> {/* הממשק משתמש */}
+    {showUpdate && ( // שימוש בהערכה קצרה כדי לראות שאם המשתנה הוא טרו שיוצג על המסך
+        <div className="toast-notification">
+          <span className="toast-icon">✓</span>
+          <p>Updated!</p>
+        </div>
+      )}
       <header>
         <h2>Flight Instruments Monitor</h2>
         <div className="controls-bar"> {/* כפתורי השליטה בין ויזואל לטקסט */}

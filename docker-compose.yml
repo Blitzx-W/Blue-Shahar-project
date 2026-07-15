@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  # 1. בסיס הנתונים MongoDB
+  mongodb:
+    image: mongo:4.4
+    container_name: flight_mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  # 2. השרת האחורי Node.js
+  backend:
+    build: ./backend
+    container_name: flight_backend
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - MONGO_URI=mongodb://mongodb:27017/flight-monitor
+    depends_on:
+      - mongodb
+
+  # 3. ממשק המשתמש React + Nginx
+  frontend:
+    build: ./frontend
+    container_name: flight_frontend
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+# שמירת הנתונים של מונגו בתוך Volume כדי שלא ימחקו כשהקונטיינר נופל
+volumes:
+  mongo_data:
