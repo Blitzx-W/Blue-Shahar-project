@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   # 1. בסיס הנתונים MongoDB
   mongodb:
@@ -11,10 +9,10 @@ services:
     volumes:
       - mongo_data:/data/db
 
-  # 2. השרת האחורי Node.js
-  backend:
+  # 2. השרת האחורי (Server)
+  server:
     build: ./server
-    container_name: flight_backend
+    container_name: flight_server
     restart: always
     ports:
       - "5000:5000"
@@ -24,16 +22,15 @@ services:
     depends_on:
       - mongodb
 
-  # 3. ממשק המשתמש React + Nginx
-  frontend:
+  # 3. ממשק המשתמש (Client)
+  client:
     build: ./client
-    container_name: flight_frontend
+    container_name: flight_client
     restart: always
     ports:
       - "80:80"
     depends_on:
-      - backend
+      - server
 
-# שמירת הנתונים של מונגו בתוך Volume כדי שלא ימחקו כשהקונטיינר נופל
 volumes:
   mongo_data:
