@@ -1,0 +1,17 @@
+name: Deploy to LXC
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Pull code and restart Docker
+        run: |
+          cd ~/Blue-Shahar-project
+          git pull origin main
+          docker-compose up -d --build
